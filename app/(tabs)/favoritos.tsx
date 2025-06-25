@@ -1,27 +1,30 @@
-import { StyleSheet, View, Pressable } from 'react-native';
+import { Movie } from '@/api';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import { useEffect, useState } from 'react';
-import { Movie } from '@/api';
 import { getFavoriteMovies } from '@/services/favorites';
-import { FlatList } from 'react-native-gesture-handler';
-import { Link } from 'expo-router';
+import { useFocusEffect } from '@react-navigation/native';
 import { Image as ExpoImage } from 'expo-image';
+import { Link } from 'expo-router';
+import { useCallback, useState } from 'react';
+import { Pressable, StyleSheet, View } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
 
 export default function FavoritosScreen() {
     const [favorites, setFavorites] = useState<Movie[]>([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        loadFavorites();
-    }, []);
-
-    const loadFavorites = async () => {
+    const loadFavorites = useCallback(async () => {
         setLoading(true);
         const movies = await getFavoriteMovies();
         setFavorites(movies);
         setLoading(false);
-    };
+    }, []);
+
+    useFocusEffect(
+        useCallback(() => {
+            loadFavorites();
+        }, [loadFavorites])
+    );
 
     if (loading) {
         return (
