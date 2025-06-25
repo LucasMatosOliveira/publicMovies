@@ -10,7 +10,6 @@ Um app mobile simples, feito com **React Native** + **Expo**, que exibe uma list
 - **Expo** - Plataforma de desenvolvimento
 - **TypeScript** - Tipagem estática
 - **React Navigation** - Navegação entre telas
-- **SQLite** - Banco de dados local
 - **React Native WebView** - Reprodução de vídeos
 - **Expo Image** - Otimização de imagens
 - **AsyncStorage** - Armazenamento local
@@ -55,7 +54,7 @@ Um app mobile simples, feito com **React Native** + **Expo**, que exibe uma list
 - Adicionar/remover filmes dos favoritos
 - Lista dedicada de favoritos
 - Sincronização automática entre telas
-- Persistência local com SQLite
+- Persistência local com AsyncStorage
 
 ### 🎬 **Reprodução de Vídeos**
 - Player integrado com WebView
@@ -86,7 +85,7 @@ publicMovies/
 │   └── movie/             # Tela de detalhes do filme
 ├── components/            # Componentes reutilizáveis
 ├── services/             # Serviços e lógica de negócio
-│   ├── database/         # Configuração do SQLite
+│   ├── database/         # Configuração da persistência dos dados
 │   ├── favorites.ts      # Gerenciamento de favoritos
 │   └── movieTime.ts      # Controle de tempo
 ├── api/                  # Integração com APIs
