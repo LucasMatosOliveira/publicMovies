@@ -37,20 +37,6 @@ Um app mobile simples, feito com **React Native** + **Expo**, que exibe uma list
  - Ou clique em "Run on Android/iOS simulator".
 
 
-## 🧩 Estrutura do projeto
-
-```bash
-publicMovies/
-├── App.js
-├── package.json
-├── src/
-│   ├── components/      # Componentes reutilizáveis (cards, headers ...)
-│   ├── screens/         # Telas do app (Home, Detalhes, etc)
-│   ├── services/        # API, chamadas de dados
-│   └── navigation/      # Configuração do React Navigation
-
-```
-
 ## 📱 Funcionalidades
  - Lista de filmes com imagem, título e nota.
 
