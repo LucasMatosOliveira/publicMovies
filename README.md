@@ -10,7 +10,6 @@ Um app mobile simples, feito com **React Native** + **Expo**, que exibe uma list
 - Expo
 - React Navigation (Stack)
 - Fetch / Axios (para chamadas de API)
-- (Opcional) Context API ou Redux para gerenciamento de estado
 
 ---
 
@@ -61,7 +60,7 @@ publicMovies/
 
  - Navegação entre telas com React Navigation.
 
- - (Opcional) Salvar filmes como favoritos com AsyncStorage.
+ - Salvar filmes como favoritos com AsyncStorage.
 
 ## 🔗 Recursos úteis
 
