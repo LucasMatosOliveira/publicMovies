@@ -7,6 +7,7 @@ export class MovieAPI {
   constructor() {
     this.findMovies = this.findMovies.bind(this);
     this.findMoviesPerTitle = this.findMoviesPerTitle.bind(this);
+    this.findMoviesPerTitle2 = this.findMoviesPerTitle2.bind(this);
   }
 
   async findMovies(page: number = 1): Promise<Movie[]> {
@@ -28,6 +29,19 @@ export class MovieAPI {
     const response = await axios.get(this.baseUrl, {
       params: {
         q: `collection:(feature_films) AND mediatype:(movies) AND title:(${title})`,
+        fl: ['identifier', 'title', 'description'],
+        rows: 20,
+        output: 'json'
+      }
+    });
+
+    return response.data.response.docs as Movie[];
+  }
+
+  async findMoviesPerTitle2(title: string): Promise<Movie[]> {
+    const response = await axios.get(this.baseUrl, {
+      params: {
+        q: `collection:(feature_films) AND mediatype:(movies) AND identifier:(${title})`,
         fl: ['identifier', 'title', 'description'],
         rows: 20,
         output: 'json'

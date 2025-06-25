@@ -40,11 +40,13 @@ export default function MovieScreen() {
     const appState = useRef(AppState.currentState);
     const lastSaveTime = useRef(0);
 
+
     const formatTime = (seconds: number): string => {
         const minutes = Math.floor(seconds / 60);
         const remainingSeconds = Math.floor(seconds % 60);
         return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
     };
+
 
     const formatDate = (dateString: string): string => {
         const date = new Date(dateString);
@@ -87,6 +89,7 @@ export default function MovieScreen() {
         }
     };
 
+
     const getSimplifiedJavaScript = () => `
         (function() {
             console.log('Iniciando captura simplificada...');
@@ -99,7 +102,9 @@ export default function MovieScreen() {
                 checkCount++;
                 console.log('Tentativa', checkCount, 'de encontrar vídeo...');
 
+
                 let video = null;
+
 
                 video = document.querySelector('video');
 
@@ -116,6 +121,7 @@ export default function MovieScreen() {
                         }
                     }
                 }
+
 
                 if (!video) {
                     video = document.querySelector('.jw-video video') ||
@@ -135,10 +141,12 @@ export default function MovieScreen() {
             }
 
             function setupVideo(video) {
+
                 if (${currentTime} > 0) {
                     video.currentTime = ${currentTime};
                     console.log('Tempo inicial definido:', ${currentTime});
                 }
+
 
                 setInterval(() => {
                     if (video.currentTime !== lastTime) {
@@ -153,18 +161,11 @@ export default function MovieScreen() {
                     }
                 }, 2000);
 
+
                 video.addEventListener('pause', () => {
                     console.log('Vídeo pausado em:', video.currentTime);
                     window.ReactNativeWebView.postMessage(JSON.stringify({
                         type: 'videoPaused',
-                        time: video.currentTime
-                    }));
-                });
-
-                video.addEventListener('play', () => {
-                    console.log('Vídeo iniciado em:', video.currentTime);
-                    window.ReactNativeWebView.postMessage(JSON.stringify({
-                        type: 'videoPlay',
                         time: video.currentTime
                     }));
                 });
@@ -176,19 +177,8 @@ export default function MovieScreen() {
                         time: video.currentTime
                     }));
                 });
-
-                const checkIfPlaying = () => {
-                    if (!video.paused && video.currentTime > 0) {
-                        console.log('Vídeo detectado como tocando!');
-                        window.ReactNativeWebView.postMessage(JSON.stringify({
-                            type: 'videoStarted',
-                            time: video.currentTime
-                        }));
-                    }
-                };
-
-                setInterval(checkIfPlaying, 1000);
             }
+
 
             findAndSetupVideo();
         })();
@@ -217,12 +207,6 @@ export default function MovieScreen() {
 
                 case 'videoPlay':
                     console.log('Vídeo iniciado em:', data.time);
-                    setIsVideoPlaying(true);
-                    setCurrentTime(data.time);
-                    break;
-
-                case 'videoStarted':
-                    console.log('Vídeo começou a tocar em:', data.time);
                     setIsVideoPlaying(true);
                     setCurrentTime(data.time);
                     break;
@@ -312,8 +296,6 @@ export default function MovieScreen() {
             useNativeDriver: true,
         }).start(() => {
             setShowMovie(false);
-            setIsVideoPlaying(false);
-            setWebViewLoaded(false);
             fadeAnim.setValue(1);
         });
     };
@@ -347,6 +329,7 @@ export default function MovieScreen() {
         setCurrentUrl(newUrl);
         console.log('Testando nova URL:', newUrl);
 
+
         setShowMovie(false);
         setTimeout(() => {
             setShowMovie(true);
@@ -355,7 +338,7 @@ export default function MovieScreen() {
 
     useEffect(() => {
         const api = new MovieAPI();
-        api.findMoviesPerTitle(id as string).then((movies) => {
+        api.findMoviesPerTitle2(id as string).then((movies) => {
             if (movies.length > 0) {
                 const selectedMovie = movies[0];
                 setMovie(selectedMovie);
@@ -418,22 +401,15 @@ export default function MovieScreen() {
                                 }}
                                 onLoad={() => {
                                     console.log('WebView carregado completamente');
-                                    setWebViewLoaded(true);
+
                                     setTimeout(() => {
                                         webViewRef.current?.injectJavaScript(`
                                             console.log('JavaScript adicional injetado');
+
                                             const video = document.querySelector('video');
                                             if (video) {
                                                 console.log('Vídeo encontrado após carregamento:', video.currentTime);
                                                 video.currentTime = ${currentTime};
-
-                                                video.addEventListener('play', () => {
-                                                    console.log('Vídeo começou a tocar!');
-                                                    window.ReactNativeWebView.postMessage(JSON.stringify({
-                                                        type: 'videoStarted',
-                                                        time: video.currentTime
-                                                    }));
-                                                });
                                             }
                                         `);
                                     }, 2000);
@@ -467,17 +443,12 @@ export default function MovieScreen() {
                                 contentFit="cover"
                                 transition={1000}
                             />
-                            {!isVideoPlaying && (
-                                <TouchableOpacity
-                                    style={[styles.playButton, !webViewLoaded && styles.playButtonLoading]}
-                                    onPress={handlePlayPress}
-                                    disabled={!webViewLoaded}>
+                            <TouchableOpacity
+                                style={styles.playButton}
+                                onPress={handlePlayPress}>
 
-                                    <ThemedText style={styles.playButtonText}>
-                                        {webViewLoaded ? 'Assistir' : 'Carregando...'}
-                                    </ThemedText>
-                                </TouchableOpacity>
-                            )}
+                                <ThemedText style={styles.playButtonText}>Assistir</ThemedText>
+                            </TouchableOpacity>
                         </View>
                     )}
                 </Animated.View>
@@ -680,9 +651,5 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         fontSize: 14,
         fontWeight: '600',
-    },
-    playButtonLoading: {
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        opacity: 0.7,
     },
 });

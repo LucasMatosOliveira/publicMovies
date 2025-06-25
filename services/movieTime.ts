@@ -46,3 +46,24 @@ export const getMovieProgress = async (movieId: string): Promise<MovieProgress |
         return null;
     }
 };
+
+export const getMovieTimeJavaScript = (currentTime: number) => `
+    (function() {
+        let lastTime = 0;
+        const video = document.querySelector('video');
+
+        if (video) {
+            video.currentTime = ${currentTime};
+
+            setInterval(() => {
+                if (video.currentTime !== lastTime) {
+                    lastTime = video.currentTime;
+                    window.ReactNativeWebView.postMessage(JSON.stringify({
+                        type: 'timeUpdate',
+                        time: video.currentTime
+                    }));
+                }
+            }, 1000);
+        }
+    })();
+`;
