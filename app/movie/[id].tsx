@@ -28,7 +28,6 @@ export default function MovieScreen() {
     const [showMovie, setShowMovie] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
     const [movieProgress, setMovieProgress] = useState<{ time: number; lastWatched: string; totalWatched: number } | null>(null);
-    const [debugMode, setDebugMode] = useState(false);
     const [currentUrl, setCurrentUrl] = useState('');
     const [webViewLoaded, setWebViewLoaded] = useState(false);
     const [isVideoPlaying, setIsVideoPlaying] = useState(false);
@@ -425,15 +424,6 @@ export default function MovieScreen() {
                                     color="#FFFFFF"
                                 />
                             </TouchableOpacity>
-
-                            {debugMode && (
-                                <TouchableOpacity
-                                    style={styles.debugButton}
-                                    onPress={testDifferentUrls}
-                                >
-                                    <ThemedText style={styles.debugButtonText}>Testar URL</ThemedText>
-                                </TouchableOpacity>
-                            )}
                         </View>
                     ) : (
                         <View style={styles.posterContainer}>
@@ -496,14 +486,6 @@ export default function MovieScreen() {
                                 <ThemedText style={styles.resetButtonText}>Resetar Progresso</ThemedText>
                             </TouchableOpacity>
 
-                            <TouchableOpacity
-                                style={[styles.resetButton, { backgroundColor: '#007AFF', marginTop: 8 }]}
-                                onPress={() => setDebugMode(!debugMode)}
-                            >
-                                <ThemedText style={styles.resetButtonText}>
-                                    {debugMode ? 'Desativar Debug' : 'Ativar Debug'}
-                                </ThemedText>
-                            </TouchableOpacity>
                         </ThemedView>
                     )}
 
