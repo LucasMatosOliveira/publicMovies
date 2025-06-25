@@ -1,50 +1,71 @@
-# Welcome to your Expo app 👋
+# 🎬 publicMovies
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Um app mobile simples, feito com **React Native** + **Expo**, que exibe uma lista de filmes públicos. Puxa dados de uma API (ou JSON local), e permite navegar entre listagens e detalhes de filmes.
 
-## Get started
+---
 
-1. Install dependencies
+## 🚀 Tecnologias
+
+- React Native
+- Expo
+- React Navigation (Stack)
+- Fetch / Axios (para chamadas de API)
+- (Opcional) Context API ou Redux para gerenciamento de estado
+
+---
+
+## 📦 Instalação
+
+1. Clone o repositório:
 
    ```bash
-   npm install
+   git clone https://github.com/LucasMatosOliveira/publicMovies.git
+   cd publicMovies
    ```
 
-2. Start the app
+2. Instale as dependências:
+   ```bash
+   npm install
+   # ou
+   yarn install
+   ```
 
+3. Rode o app com Expo:
    ```bash
    npx expo start
    ```
+ - Use o app Expo Go no seu celular (escaneie o QR Code).
+ - Ou clique em "Run on Android/iOS simulator".
 
-In the output, you'll find options to open the app in a
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## 🧩 Estrutura do projeto
 
 ```bash
-npm run reset-project
+publicMovies/
+├── App.js
+├── package.json
+├── src/
+│   ├── components/      # Componentes reutilizáveis (cards, headers ...)
+│   ├── screens/         # Telas do app (Home, Detalhes, etc)
+│   ├── services/        # API, chamadas de dados
+│   └── navigation/      # Configuração do React Navigation
+
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 📱 Funcionalidades
+ - Lista de filmes com imagem, título e nota.
 
-## Learn more
+ - Tela de detalhes com descrição, elenco, trailer, etc.
 
-To learn more about developing your project with Expo, look at the following resources:
+ - Pull to refresh para atualizar conteúdo.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+ - Navegação entre telas com React Navigation.
 
-## Join the community
+ - (Opcional) Salvar filmes como favoritos com AsyncStorage.
 
-Join our community of developers creating universal apps.
+## 🔗 Recursos úteis
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- 📘 [Documentação do Expo](https://docs.expo.dev)
+- 🚦 [React Navigation](https://reactnavigation.org/)
+- 🔌 [Axios](https://axios-http.com/)
+- 🎥 [Archive Database](https://archive.org)
